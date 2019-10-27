@@ -1,7 +1,7 @@
 {
   "name": "msgraph_authkit",
   "version": "1.0.0",
-  "description": "",
+  "description": "The missing NodeJS (server-side/embedded devices) authentication provider library",
   "main": "src/index.js",
   "scripts": {
     "debug": "node --inspect=5858 -r ts-node/register src/index.ts",
@@ -24,6 +24,10 @@
   ],
   "author": "Jackson Ming Hu <huming2207@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huming2207/MsGraphAuthKit"
+  },
   "dependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
