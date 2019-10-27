@@ -1,3 +1,7 @@
+/**
+ * @module ClientCredAuthProvider
+ */
+
 import { AuthenticationProvider } from '@microsoft/microsoft-graph-client';
 import Axios, { AxiosInstance } from 'axios';
 import QueryString from 'query-string';
