@@ -1,6 +1,6 @@
 {
   "name": "msgraph_authkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The missing NodeJS (server-side/embedded devices) authentication provider library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
