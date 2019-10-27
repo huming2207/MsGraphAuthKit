@@ -1,8 +1,9 @@
 {
   "name": "msgraph_authkit",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "The missing NodeJS (server-side/embedded devices) authentication provider library",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "debug": "node --inspect=5858 -r ts-node/register src/index.ts",
     "convert": "ts-jest config:migrate ./jest.config.js",
@@ -53,5 +54,8 @@
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "ts-node": "^8.4.1"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }
