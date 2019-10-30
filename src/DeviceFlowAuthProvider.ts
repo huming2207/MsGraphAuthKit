@@ -6,10 +6,28 @@ import { AuthenticationProvider } from '@microsoft/microsoft-graph-client';
 import Axios, { AxiosInstance } from 'axios';
 import QueryString from 'query-string';
 
+export class FirstStageCode {
+    private _userCode: string;
+    private _deviceCode: string;
+    constructor(userCode: string, deviceCode: string) {
+        this._userCode = userCode;
+        this._deviceCode = deviceCode;
+    }
+
+    get userCode(): string {
+        return this._userCode;
+    }
+
+    get deviceCode(): string {
+        return this._deviceCode;
+    }
+}
+
 export class DeviceFlowAuthProvider implements AuthenticationProvider {
     private clientId: string;
     private scope: string;
     private axios: AxiosInstance;
+    private deviceCode: string = '';
     constructor(public _clientId: string, public _scope = "https://graph.microsoft.com/.default offline_access", public _tenantId = "organizations") {
         this.clientId = _clientId;
         this.scope = _scope;
@@ -20,12 +38,12 @@ export class DeviceFlowAuthProvider implements AuthenticationProvider {
 
     public async getAccessToken(): Promise<string> { 
         return new Promise<string>((resolve, reject) => {
-            
+            if(!this.deviceCode) reject(new Error(''));
         });
     }
 
-    public async getDeviceCode(): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+    public async getFirstStageCode(): Promise<FirstStageCode> {
+        return new Promise<FirstStageCode>((resolve, reject) => {
             const queryString = QueryString.stringify({
                 client_id: this.clientId,
                 scope: this.scope
@@ -38,19 +56,16 @@ export class DeviceFlowAuthProvider implements AuthenticationProvider {
                     },
                 })
                 .then(resp => {
-                    if (resp.data && resp.data.device_code) {
-                        resolve(resp.data.device_code);
+                    if (resp.data && resp.data.user_code && resp.data.device_code) {
+                        this.deviceCode = resp.data.device_code;
+                        resolve(new FirstStageCode(resp.data.user_code, resp.data.device_code));
                     } else {
-                        reject(new Error(''));
+                        reject(new Error('Empty or invalid response data!'));
                     }
                 })
                 .catch(err => {
-                    if (err.data) {
-                        reject(err.data);
-                    } else {
-                        reject(err);
-                }
-            });
+                    reject(err);
+                });
         });
     }
 }
