@@ -40,16 +40,12 @@ export class ClientCredAuthProvider implements AuthenticationProvider {
                     if (resp.data && resp.data.access_token) {
                         resolve(resp.data.access_token);
                     } else {
-                        reject(resp);
+                        reject(new Error('Empty or invalid response data!'));
                     }
                 })
                 .catch(err => {
-                    if (err.data) {
-                        reject(err.data);
-                    } else {
-                        reject(err);
-                }
-            });
+                    reject(err);
+                });
         });
     }
 }
