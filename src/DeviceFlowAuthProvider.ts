@@ -27,8 +27,8 @@ export class DeviceFlowAuthProvider implements AuthenticationProvider {
     private clientId: string;
     private scope: string;
     private axios: AxiosInstance;
-    private deviceCode: string = '';
-    constructor(public _clientId: string, public _scope = "https://graph.microsoft.com/.default offline_access", public _tenantId = "organizations") {
+    private deviceCode = '';
+    constructor(public _clientId: string, public _scope = 'https://graph.microsoft.com/.default offline_access', public _tenantId = 'organizations') {
         this.clientId = _clientId;
         this.scope = _scope;
         this.axios = Axios.create({
@@ -36,9 +36,9 @@ export class DeviceFlowAuthProvider implements AuthenticationProvider {
         });
     }
 
-    public async getAccessToken(): Promise<string> { 
+    public async getAccessToken(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            if(!this.deviceCode) reject(new Error(''));
+            if (!this.deviceCode) reject(new Error(''));
         });
     }
 
@@ -46,8 +46,8 @@ export class DeviceFlowAuthProvider implements AuthenticationProvider {
         return new Promise<FirstStageCode>((resolve, reject) => {
             const queryString = QueryString.stringify({
                 client_id: this.clientId,
-                scope: this.scope
-            }); 
+                scope: this.scope,
+            });
 
             this.axios
                 .post('/oauth2/v2.0/devicecode', queryString, {

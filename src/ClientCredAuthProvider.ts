@@ -17,7 +17,7 @@ export class ClientCredAuthProvider implements AuthenticationProvider {
         this.clientId = _clientId;
         this.clientSecret = _clientSecret;
         this.axios = Axios.create({
-          baseURL: `https://login.microsoftonline.com/${_tenantId}`,
+            baseURL: `https://login.microsoftonline.com/${_tenantId}`,
         });
     }
 
